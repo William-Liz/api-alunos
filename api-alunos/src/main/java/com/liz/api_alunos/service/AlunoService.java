@@ -38,13 +38,22 @@ public class AlunoService {
         }
         return null;
     }
-    public void cadastrarAluno(AlunoRequest request) {
+    public AlunoResponse cadastrarAluno(AlunoRequest request) {
         alunos.add(new Aluno(id,
                 request.getNome(),
                 request.getEmail(),
                 request.getSenha(),
                 request.getDataNascimento(),
                 request.getMedia()));
+
         id++;
+
+        Aluno alunoCadastro = alunos.get(alunos.size() - 1);
+
+        return new AlunoResponse(alunoCadastro.getId(),
+                alunoCadastro.getNome(),
+                alunoCadastro.getEmail(),
+                alunoCadastro.getDataNascimento(),
+                alunoCadastro.getMedia());
     }
 }

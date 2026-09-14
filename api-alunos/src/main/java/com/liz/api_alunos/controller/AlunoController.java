@@ -28,7 +28,7 @@ public class AlunoController {
     }
 
     @PostMapping
-    public void cadastrarAluno(@RequestBody AlunoRequest request) {
-        service.cadastrarAluno(request);
+    public AlunoResponse cadastrarAluno(@RequestBody AlunoRequest request) {
+        return service.cadastrarAluno(request);
     }
 }
