@@ -1,9 +1,9 @@
 package com.liz.api_alunos.service;
 
+import com.liz.api_alunos.dto.AlunoRequest;
 import com.liz.api_alunos.dto.AlunoResponse;
 import com.liz.api_alunos.model.Aluno;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +13,11 @@ public class AlunoService {
 
     private final List<Aluno> alunos;
 
+    private int id = 1;
+
     public AlunoService() {
         alunos = new ArrayList<>();
 
-        alunos.add(new Aluno(0,"William","w@email",
-                "senha", LocalDate.of(1999,05,03),9));
-
-        alunos.add(new Aluno(1,"yuri","y@email",
-                "senha", LocalDate.of(2006,07,13),9));
-
-        alunos.add(new Aluno(2,"Enzo","e@email",
-                "senha", LocalDate.of(2008,12,06),9));
     }
 
     public List<AlunoResponse> listarAlunos() {
@@ -43,5 +37,14 @@ public class AlunoService {
             }
         }
         return null;
+    }
+    public void cadastrarAluno(AlunoRequest request) {
+        alunos.add(new Aluno(id,
+                request.getNome(),
+                request.getEmail(),
+                request.getSenha(),
+                request.getDataNascimento(),
+                request.getMedia()));
+        id++;
     }
 }

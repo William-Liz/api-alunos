@@ -1,11 +1,10 @@
 package com.liz.api_alunos.controller;
 
+import com.liz.api_alunos.dto.AlunoRequest;
 import com.liz.api_alunos.dto.AlunoResponse;
 import com.liz.api_alunos.service.AlunoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -26,5 +25,10 @@ public class AlunoController {
     @GetMapping("/{id}")
     public AlunoResponse obterAlunoPorId(@PathVariable int id) {
         return service.obterPorId(id);
+    }
+
+    @PostMapping
+    public void cadastrarAluno(@RequestBody AlunoRequest request) {
+        service.cadastrarAluno(request);
     }
 }
