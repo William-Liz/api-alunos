@@ -6,26 +6,26 @@ import java.time.LocalDate;
 
 public class AlunoRequest {
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "Nome não pode ser vazio")
+    @Size(max = 50, message = "no máximo 50 caracteres")
     private String nome;
 
-    @NotBlank
-    @Email
-    @Size(min = 5, max = 100)
+    @NotBlank(message = "Email não pode ser vazio")
+    @Email(message = "Formato de email inválido")
+    @Size(min = 5, max = 100, message = "Número de caracteres deve ser maior do que 5 e menor que 100")
     private String email;
 
-    @NotBlank
-    @Size(min = 5, max = 50)
+    @NotBlank(message = "Senha não pode ser vazia")
+    @Size(min = 5, max = 50, message = "Senha deve ter no mínimo 5 caracteres e no máximo 50")
     private String senha;
 
-    @NotNull
-    @PastOrPresent
+    @NotNull(message = "data de nascimento não pode ser vazio")
+    @PastOrPresent(message = "data invalida")
     private LocalDate dataNascimento;
 
-    @NotNull
-    @Min(value = 0)
-    @Max(value = 10)
+    @NotNull(message = "media não pode ser vazia")
+    @Min(value = 0,message = "nota mínima é 0")
+    @Max(value = 10,message = "nota máxima é 10")
     private double media;
 
     public AlunoRequest(String nome, String email, String senha, LocalDate dataNascimento, double media) {
