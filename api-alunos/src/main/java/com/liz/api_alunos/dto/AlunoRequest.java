@@ -1,16 +1,31 @@
 package com.liz.api_alunos.dto;
 
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
 public class AlunoRequest {
+
+    @NotBlank
+    @Size(max = 50)
     private String nome;
 
+    @NotBlank
+    @Email
+    @Size(min = 5, max = 100)
     private String email;
 
+    @NotBlank
+    @Size(min = 5, max = 50)
     private String senha;
 
+    @NotNull
+    @PastOrPresent
     private LocalDate dataNascimento;
 
+    @NotNull
+    @Min(value = 0)
+    @Max(value = 10)
     private double media;
 
     public AlunoRequest(String nome, String email, String senha, LocalDate dataNascimento, double media) {

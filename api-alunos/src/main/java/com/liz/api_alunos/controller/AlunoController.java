@@ -3,6 +3,7 @@ package com.liz.api_alunos.controller;
 import com.liz.api_alunos.dto.AlunoRequest;
 import com.liz.api_alunos.dto.AlunoResponse;
 import com.liz.api_alunos.service.AlunoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class AlunoController {
     }
 
     @PostMapping
-    public AlunoResponse cadastrarAluno(@RequestBody AlunoRequest request) {
+    public AlunoResponse cadastrarAluno(@Valid @RequestBody AlunoRequest request) {
         return service.cadastrarAluno(request);
     }
 }
