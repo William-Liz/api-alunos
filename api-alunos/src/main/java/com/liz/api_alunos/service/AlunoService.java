@@ -2,6 +2,8 @@ package com.liz.api_alunos.service;
 
 import com.liz.api_alunos.dto.AlunoRequest;
 import com.liz.api_alunos.dto.AlunoResponse;
+import com.liz.api_alunos.exception.AlunoNaoEncontradoException;
+import com.liz.api_alunos.exception.EmailJaCadastradoException;
 import com.liz.api_alunos.model.Aluno;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -36,12 +38,12 @@ public class AlunoService {
                         AlunoResponse(a.getId(), a.getNome(), a.getEmail(), a.getDataNascimento(), a.getMedia());
             }
         }
-        throw new RuntimeException("Aluno não encontrado");
+        throw new AlunoNaoEncontradoException("Aluno não encontrado");
     }
     public AlunoResponse cadastrarAluno(AlunoRequest request) {
         for (Aluno aluno : alunos) {
             if (aluno.getEmail().equalsIgnoreCase(request.getEmail())) {
-                throw new RuntimeException("Email ja cadastrado: ");
+                throw new EmailJaCadastradoException("Email ja cadastrado: ");
             }
         }
         alunos.add(new Aluno(id,
@@ -65,7 +67,7 @@ public class AlunoService {
         for (Aluno a : alunos) {
 
             if (a.getEmail().equalsIgnoreCase(request.getEmail()) && id != a.getId()) {
-                throw new RuntimeException("Email ja cadastrado: ");
+                throw new EmailJaCadastradoException("Email ja cadastrado: ");
             }
             if (a.getId() == id){
                 a.setNome(request.getNome());
@@ -80,7 +82,7 @@ public class AlunoService {
                         a.getMedia());
             }
         }
-        throw new RuntimeException("Aluno não encontrado");
+        throw new AlunoNaoEncontradoException("Aluno não encontrado");
     }
     public void excluirAluno(int id) {
         for (Aluno a : alunos) {
@@ -89,6 +91,6 @@ public class AlunoService {
                 return;
             }
         }
-        throw new RuntimeException("Aluno não encontrado");
+        throw new AlunoNaoEncontradoException("Aluno não encontrado");
     }
 }
