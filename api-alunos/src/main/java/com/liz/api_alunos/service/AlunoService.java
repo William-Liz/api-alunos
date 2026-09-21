@@ -36,9 +36,14 @@ public class AlunoService {
                         AlunoResponse(a.getId(), a.getNome(), a.getEmail(), a.getDataNascimento(), a.getMedia());
             }
         }
-        return null;
+        throw new RuntimeException("Aluno não encontrado");
     }
     public AlunoResponse cadastrarAluno(AlunoRequest request) {
+        for (Aluno aluno : alunos) {
+            if (aluno.getEmail().equalsIgnoreCase(request.getEmail())) {
+                throw new RuntimeException("Email ja cadastrado: ");
+            }
+        }
         alunos.add(new Aluno(id,
                 request.getNome(),
                 request.getEmail(),
@@ -55,5 +60,35 @@ public class AlunoService {
                 alunoCadastro.getEmail(),
                 alunoCadastro.getDataNascimento(),
                 alunoCadastro.getMedia());
+    }
+    public  AlunoResponse atualizarAluno(int id, AlunoRequest request) {
+        for (Aluno a : alunos) {
+
+            if (a.getEmail().equalsIgnoreCase(request.getEmail()) && id != a.getId()) {
+                throw new RuntimeException("Email ja cadastrado: ");
+            }
+            if (a.getId() == id){
+                a.setNome(request.getNome());
+                a.setEmail(request.getEmail());
+                a.setSenha(request.getSenha());
+                a.setDataNascimento(request.getDataNascimento());
+                a.setMedia(request.getMedia());
+
+                return new AlunoResponse(id, a.getNome(),
+                        a.getEmail(),
+                        a.getDataNascimento(),
+                        a.getMedia());
+            }
+        }
+        throw new RuntimeException("Aluno não encontrado");
+    }
+    public void excluirAluno(int id) {
+        for (Aluno a : alunos) {
+            if (a.getId() == id){
+                alunos.remove(a);
+                return;
+            }
+        }
+        throw new RuntimeException("Aluno não encontrado");
     }
 }
