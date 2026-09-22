@@ -5,15 +5,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.Instant;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AlunoNaoEncontradoException.class)
-    public ResponseEntity<String> handleAlunoNaoEncontradoExeption(AlunoNaoEncontradoException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    public ResponseEntity<ErroResponse> handleAlunoNaoEncontradoExeption(AlunoNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroResponse(404,ex.getMessage(), Instant.now()));
     }
     @ExceptionHandler(EmailJaCadastradoException.class)
-    public ResponseEntity<String> handleEmailJaCadastrado(EmailJaCadastradoException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    public ResponseEntity<ErroResponse> handleEmailJaCadastrado(EmailJaCadastradoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErroResponse(409, ex.getMessage(),  Instant.now()));
     }
 }
